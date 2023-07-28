@@ -15,7 +15,8 @@ class DeliverymanStorageMySQL(MySQL, DeliverymanStorage):
             "CREATE TABLE IF NOT EXISTS deliverymans ("
             "deliveryman_id VARCHAR(36) PRIMARY KEY,"
             "name VARCHAR(255) NOT NULL,"
-            "email VARCHAR(255) NOT NULL"
+            "email VARCHAR(255) NOT NULL,"
+            "available BOOLEAN NOT NULL DEFAULT TRUE"
             ")"
         )
 
@@ -23,7 +24,7 @@ class DeliverymanStorageMySQL(MySQL, DeliverymanStorage):
         self.commit()
 
     def get_all(self):
-        get_all_query = "SELECT * FROM deliveryman"
+        get_all_query = "SELECT * FROM deliverymans"
 
         if deliverymans := self.execute_query_many(get_all_query):
             return [DeliverymanModel(*deliveryman) for deliveryman in deliverymans]
@@ -42,9 +43,9 @@ class DeliverymanStorageMySQL(MySQL, DeliverymanStorage):
         else:
             raise NotFoundFail('Deliveryman not found')
 
-    def save(self, deliveryman):
-        save_query = "INSERT INTO deliverymans (deliveryman_id, name, email) VALUES (%s, %s, %s)"
-        save_params = (deliveryman.deliveryman_id, deliveryman.name, deliveryman.email)
+    def save(self, deliveryman: DeliverymanModel):
+        save_query = "INSERT INTO deliverymans (deliveryman_id, name, email, available) VALUES (%s, %s, %s, %s)"
+        save_params = (deliveryman.deliveryman_id, deliveryman.name, deliveryman.email, deliveryman.available)
 
         self.execute_query_one(save_query, save_params)
         self.commit()

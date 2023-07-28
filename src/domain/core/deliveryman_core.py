@@ -1,5 +1,4 @@
 from src.domain.interfaces.deliveryman_interface import DeliverymanStorage
-from src.domain.interfaces.status_interface import StatusMessageBroker
 from src.domain.models.deliveryman_model import DeliverymanModel
 from src.exceptions.custom_exceptions import InvalidInputFail
 from src.utils.email import is_valid_email
