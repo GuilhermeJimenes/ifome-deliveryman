@@ -3,9 +3,9 @@ from flask_cors import CORS
 from flask_restx import Api
 
 from src.presentation.payloads.status import status_ns
-from src.presentation.payloads.user import user_ns
+from src.presentation.payloads.deliveryman import deliveryman_ns
 from src.presentation.resources.status import Status
-from src.presentation.resources.user import Users, User
+from src.presentation.resources.deliveryman import Deliverymans, Deliveryman
 
 print('public')
 
@@ -15,10 +15,10 @@ cors = CORS(app)
 api = Api(app)
 
 # namespaces
-api.add_namespace(user_ns)
+api.add_namespace(deliveryman_ns)
 api.add_namespace(status_ns)
 
 # resources
-user_ns.add_resource(Users, '')
-user_ns.add_resource(User, '/<string:_id>')
+deliveryman_ns.add_resource(Deliverymans, '')
+deliveryman_ns.add_resource(Deliveryman, '/<string:_id>')
 status_ns.add_resource(Status, '/<string:_id>')
