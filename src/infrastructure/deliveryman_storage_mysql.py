@@ -43,6 +43,14 @@ class DeliverymanStorageMySQL(MySQL, DeliverymanStorage):
         else:
             raise NotFoundFail('Deliveryman not found')
 
+    def update(self, deliveryman_id, new_available):
+        update_query = "UPDATE deliverymans SET available = %s WHERE deliveryman_id = %s"
+        update_params = (new_available, deliveryman_id)
+
+        self.execute_query_one(update_query, update_params)
+        self.commit()
+        self.connection_close()
+
     def save(self, deliveryman: DeliverymanModel):
         save_query = "INSERT INTO deliverymans (deliveryman_id, name, email, available) VALUES (%s, %s, %s, %s)"
         save_params = (deliveryman.deliveryman_id, deliveryman.name, deliveryman.email, deliveryman.available)
