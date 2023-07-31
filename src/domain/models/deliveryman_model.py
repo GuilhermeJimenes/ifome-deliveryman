@@ -2,7 +2,8 @@ from dataclasses import dataclass
 
 
 @dataclass
-class UserModel:
-    user_id: str
+class DeliverymanModel:
+    deliveryman_id: str
     name: str
     email: str
+    available: str = True
